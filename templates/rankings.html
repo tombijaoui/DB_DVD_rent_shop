@@ -1,0 +1,89 @@
+{% extends 'baseTemplate.html' %}
+    {% block title %}
+        Rankings
+    {% endblock %}
+
+    {% block link_queries %}
+        queryResult.html
+    {% endblock %}
+
+    {% block link_records %}
+        recordsManagement.html
+    {% endblock %}
+
+    {% block link_rankings %}
+    {% endblock %}
+
+    {% block title_page %}
+        <br>
+        <h1 align="center" style="color: gold;"><big>Rankings</big></h1><br><br>
+    {% endblock %}
+
+    {% block page_content %}
+        <br>
+        <form action="rankings.html" method="POST" required style="text-align: center; color: gold" >
+        {% csrf_token %}
+
+        hID<select name="new_hID_rank">
+        {% for content in sql_hID %}
+            <option value="{{ content.hID }}">{{ content.hID }}</option>
+        {% endfor %}
+        </select><br><br>
+
+        Title<select name="new_title_rank">
+        {% for content in sql_title %}
+            <option value="{{ content.title }}">{{ content.title }}</option>
+        {% endfor %}
+        </select><br><br>
+
+        Rank <select name="new_rank">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select><br><br>
+        <input type="submit"><br><br><br>
+        </form><br><br><br>
+
+        <form action="rankings.html" method="POST" required style="text-align: center; color: gold" >
+        {% csrf_token %}
+        Genre<select name="selected_genre">
+        {% for content in sql_genre %}
+            <option value="{{ content.genre }}">{{ content.genre }}</option>
+        {% endfor %}
+        </select><br><br>
+        min Ranks<input type="number" name="min_rank"><br><br>
+        <input type="submit"><br><br><br>
+        </form>
+
+
+        <table border="1" width="70%" align="center" style="color:black; background-color: gold">
+            <th style="background-color: darkorange">Title</th>
+            <th style="background-color: darkorange"> Average Rank </th>
+
+            {% if n == 5 %}
+            {% for content in sql_min_rank %}
+                <tr>
+                <td align="center">{{ content.title }}</td>
+                <td align="center">{{ content.averageRank }}</td>
+                </tr>
+            {% endfor %}
+
+                {% else %}
+                {% for content in sql_min_rank1 %}
+                <tr>
+                <td align="center">{{ content.title }}</td>
+                <td align="center">{{ content.averageRank }}</td>
+                </tr>
+            {% endfor %}
+
+
+
+            {% endif %}
+
+
+
+        </table><br>
+
+    {% endblock %}

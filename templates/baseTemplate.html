@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+<body style="background-color: black">
+
+    {% block title_page %}
+    {% endblock %}
+
+    {% block page_content %}
+    {% endblock %}
+
+    <p>
+    <a style="color: gold" href="{% block link_queries %} {% endblock %}" target="_self">Query Results</a>
+        <br>
+    <a style="color: gold" href="{% block link_records %} {% endblock %}" target="_self">Records Management</a>
+        <br>
+    <a style="color: gold" href="{% block link_rankings %} {% endblock %}" target="_self">Rankings</a>
+        <br>
+</body>
+</html>

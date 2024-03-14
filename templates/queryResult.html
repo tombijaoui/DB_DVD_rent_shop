@@ -1,0 +1,60 @@
+{% extends 'baseTemplate.html' %}
+    {% block title %}
+        Query Results
+    {% endblock %}
+
+    {% block link_queries %}
+    {% endblock %}
+
+    {% block link_records %}
+        recordsManagement.html
+    {% endblock %}
+
+    {% block link_rankings %}
+    {% endblock %}
+
+    {% block title_page %}
+        <br>
+        <h1 align="center" style="color: gold;"><big>Query Results</big></h1><br>
+    {% endblock %}
+
+    {% block page_content %}
+        <big><h1 style="color: gold">Query 1:</h1></big>
+        <table border="1" width="70%" align="center" style="color:black; background-color: gold">
+        <th style="background-color: darkorange">Genre</th> <th style="background-color: darkorange">Title</th>
+            <th style="background-color: darkorange">Duration</th>
+
+        {% for content in sql_res1 %}
+            <tr>
+            <td>{{ content.genre }}</td>
+            <td>{{ content.title }}</td>
+            <td align="center">{{ content.maxDuration }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <big><h1 style="color: gold">Query 2:</h1></big>
+        <table border="1" width="70%" align="center" style="color:black; background-color: gold">
+        <th style="background-color: darkorange">Title</th> <th style="background-color: darkorange">Average Rank</th>
+
+
+        {% for content in sql_res2 %}
+            <tr>
+            <td>{{ content.title }}</td>
+            <td align="center">{{ content.Average_Rank }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+
+        <big><h1 style="color: gold">Query 3:</h1></big>
+        <table border="1" width="70%" align="center" style="color:black; background-color: gold">
+        <th style="background-color: darkorange">Title</th>
+
+        {% for content in sql_res3 %}
+            <tr>
+            <td>{{ content.title }}</td>
+            </tr>
+        {% endfor %}
+        </table><br>
+    {% endblock %}

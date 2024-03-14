@@ -1,0 +1,89 @@
+{% extends 'baseTemplate.html' %}
+    {% block title %}
+        {% if error_case == "no error" %}
+            Records Management
+        {% else %}
+            Error
+        {% endif %}
+    {% endblock %}
+
+    {% block link_queries %}
+        queryResult.html
+    {% endblock %}
+
+    {% block link_records %}
+        recordsManagement.html
+    {% endblock %}
+
+    {% block link_rankings %}
+        rankings.html
+    {% endblock %}
+
+    {% block title_page %}
+        <br>
+        <h1 align="center" style="color: gold;"><big>Records Management</big></h1><br><br>
+    {% endblock %}
+
+    {% block page_content %}
+        {% if error_case == "no error" %}
+            <h1 style="color: gold">Order:</h1>
+            <form action="recordsManagement.html" method="POST" required style="text-align: center; color: gold" >
+            {% csrf_token %}
+            hID:<input type="number" name="new_hID_order" rows="1" cols="25" maxlength="50"><br><br>
+            Title: <textarea name="new_title_order" rows="1" cols="25" maxlength="50"></textarea><br><br>
+            <br>
+            <input type="submit">
+            </form>
+            <br><br>
+
+            <h1 style="color: gold">Return:</h1>
+            <form action="recordsManagement.html" method="POST" required style="text-align: center; color: gold">
+            {% csrf_token %}
+            hID:<input type="number" name="new_hID_return" rows="1" cols="25" maxlength="50"><br><br>
+            Title: <textarea name="new_title_return" rows="1" cols="25" maxlength="50"></textarea><br><br>
+            <br>
+            <input type="submit">
+            </form>
+            <br><br>
+
+            <table border="1" width="70%" align="center" style="color:black; background-color: gold">
+            <th style="background-color: darkorange">hID</th> <th style="background-color: darkorange">Total Orders</th>
+
+
+            {% for content in sql_res %}
+                <tr>
+                <td align="center">{{ content.hID }}</td>
+                <td align="center">{{ content.Total_Num_Programs }}</td>
+                </tr>
+            {% endfor %}
+            </table><br>
+
+        {% else %}
+            <h1 align="center" style="color: gold">ERROR !</h1><br>
+            {% if error_case == "hID does not exist" %}
+                <h1 style="color: gold">This hID does not exist!</h1><br><br>
+
+            {% elif error_case == "title does not exist" %}
+                <h1 style="color: gold">This program does not exist!</h1><br><br>
+
+            {% elif error_case == "already have 3 programs" %}
+                <h1 style="color: gold">This family already ordered 3 programs !</h1><br><br>
+
+            {% elif error_case == "already ordered program by other family" %}
+                <h1 style="color: gold">This program is already ordered by another family !</h1><br><br>
+
+            {% elif error_case == "already ordered program by this family" %}
+                <h1 style="color: gold">This program is already ordered by this family !</h1><br><br>
+
+            {% elif error_case == "already ordered before" %}
+                <h1 style="color: gold">This program has already been ordered by this family before!</h1><br><br>
+
+            {% elif error_case == "not adequate program" %}
+                <h1 style="color: gold">This program is not appropriate for children !</h1><br><br>
+
+            {% elif error_case == "not belongs to this family" %}
+                <h1 style="color: gold">This program does not belong to this family !</h1><br><br>
+
+           {% endif %}
+        {% endif %}
+    {% endblock %}
